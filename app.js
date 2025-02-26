@@ -1,7 +1,35 @@
 const http = require('http');
+const fs = require('fs');
 
 function requestListener(req, res) {
-    console.log('req', req.url, req.method, req.headers);
+    const {url, method, headers} = req;
+    console.log('req url' , url);
+
+    if (url === '/') {
+        res.write('<html>');
+        res.write('<head><title>My First Page</title></head>');
+        res.write('<body><form action="/message" method="POST"><input type="text" name="message" /> <button type="submit">Send</button> </form></body>');
+        res.write('</html>');
+
+        return res.end();
+    }
+
+    if (method === 'POST' && url === '/message') {
+        const body = [];
+        req.on('data', (chunk) => {
+            body.push(chunk);
+        })
+
+        req.on('end', () => {
+            const parsedBody = Buffer.concat(body).toString();
+            const message = parsedBody.split("=")[1];
+            fs.writeFileSync('message.txt', message);
+        })
+
+        res.statusCode = 302;
+        res.setHeader('Location', '/');
+        return res.end();
+    }
 
     res.setHeader(
         'Content-Type', 'text/html'
@@ -13,7 +41,6 @@ function requestListener(req, res) {
     res.write('</html>');
 
     res.end();
-
 }
 
 const server = http.createServer(requestListener);

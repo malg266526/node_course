@@ -1,7 +1,6 @@
-const http = require('http');
 const fs = require('fs');
 
-function requestListener(req, res) {
+const requestHandler = (req, res) => {
     const {url, method, headers} = req;
     console.log('req url' , url);
 
@@ -23,12 +22,12 @@ function requestListener(req, res) {
         req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
             const message = parsedBody.split("=")[1];
-            fs.writeFileSync('message.txt', message);
+            fs.writeFile('message.txt', message, err => {
+                res.statusCode = 302;
+                res.setHeader('Location', '/');
+                return res.end();
+            });
         })
-
-        res.statusCode = 302;
-        res.setHeader('Location', '/');
-        return res.end();
     }
 
     res.setHeader(
@@ -43,6 +42,4 @@ function requestListener(req, res) {
     res.end();
 }
 
-const server = http.createServer(requestListener);
-
-server.listen(3000);
+module.exports = requestHandler;

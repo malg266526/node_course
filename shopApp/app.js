@@ -19,7 +19,7 @@ app.use(shopRoutes);
 
 // "/" is default
 app.use((req, res, next) => {
-    res.render('404')
+    res.render('404', {pageTitle: 'Not Found'});
 })
 
 app.listen(3001);

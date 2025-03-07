@@ -10,7 +10,7 @@ router.get("/", (req,res,next) => {
 
     console.log('Show: products ', products);
 
-    res.render('shop', {products: products, docTitle: 'Shop'})
+    res.render('shop', {products: products, pageTitle: 'Shop', path: '/'})
 })
 
 module.exports = router;

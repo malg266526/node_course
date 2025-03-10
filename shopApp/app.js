@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const handlebars = require('express-handlebars');
+// const handlebars = require('express-handlebars');
 
 const adminData = require('./routes/admin');
 
@@ -9,8 +9,8 @@ const path = require("node:path");
 
 const app = express();
 
-app.engine('handlebars', handlebars({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout'}));
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', handlebars({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout'}));
+app.set('view engine', 'ejs');
 app.set('views', 'views')
 
 app.use(bodyParser.urlencoded({extended: false}));

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a class="active" href="/">Form</a></li>
+                <li class="main-header__item"><a href="/users">Users</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form class="user-form" action="/add-users" method="post">
+            <div class="user-form__input-section">
+                <label for="name">Add a name</label>
+                <input type="text" name="name" id="name" >
+            </div>
+
+            <button type="submit">Add</button>
+        </form>
+    </main>
+</body>
+</html>

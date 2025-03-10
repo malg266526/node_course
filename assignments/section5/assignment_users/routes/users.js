@@ -6,7 +6,7 @@ const users = [];
 
 router.get('/users', (req, res) => {
     console.log('USERS GET');
-    res.render('users', {users: users});
+    res.render('users', {users: users, pageTitle: 'Users'});
 })
 
 router.post('/add-users', (req, res) => {

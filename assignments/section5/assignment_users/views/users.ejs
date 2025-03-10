@@ -1,34 +1,27 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users</title>
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-    <header class="main-header">
-        <nav class="main-header__nav">
-            <ul class="main-header__item-list">
-                <li class="main-header__item"><a href="/">Form</a></li>
-                <li class="main-header__item"><a class="active" href="/users">Users</a></li>
-            </ul>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= pageTitle %></title>
+        <link rel="stylesheet" href="/main.css">
+    </head>
+    <body>
+        <%- include('components/navigation.ejs') %>
 
-    <main>
-        <h1>Users</h1>
-        <% if (users.length > 0) { %>
-            <div>
-                <ul>
-                    <% for (let user of users) { %>
-                        <li><%= user %></li>
-                    <% } %>
-                </ul>
-            </div>
-        <% } else { %>
-            <h1>No users</h1>
-        <% } %>
-    </main>
-</body>
+        <main>
+            <h1>Users</h1>
+            <% if (users.length > 0) { %>
+                <div>
+                    <ul>
+                        <% for (let user of users) { %>
+                            <li><%= user %></li>
+                        <% } %>
+                    </ul>
+                </div>
+            <% } else { %>
+                <h1>No users</h1>
+            <% } %>
+        </main>
+    </body>
 </html>

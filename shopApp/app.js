@@ -21,7 +21,7 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 // "/" is default
-app.use(errorHandler.getPageNotFound)
+app.use(errorHandler.get404)
 
 app.listen(3001);
 

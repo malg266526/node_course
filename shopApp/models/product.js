@@ -13,10 +13,14 @@ const getProductsFromFile = (callback) => {
     })
 }
 
+// https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png
 
 module.exports = class Product {
-    constructor(title) {
+    constructor(title, imageUrl, description, price) {
         this.title = title;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
     }
 
     save() {

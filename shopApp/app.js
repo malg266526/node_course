@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 // const handlebars = require('express-handlebars');
 
-const errorHandler = require('./controllers/errors');
+const errorController = require('./controllers/errors');
 const adminRoutes = require('./routes/admin');
 
 const shopRoutes = require('./routes/shop');
@@ -21,7 +21,7 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 // "/" is default
-app.use(errorHandler.get404)
+app.use(errorController.get404)
 
 app.listen(3001);
 

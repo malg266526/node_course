@@ -10,9 +10,6 @@ exports.getAddProductPage = (req, res, next) => {
     res.render('admin/add-product', {
         pageTitle: "Add Product",
         path: '/admin/add-product',
-        activeAddProduct: true,
-        productCSS: true,
-        formCSS: true
     });
 }
 
@@ -21,7 +18,7 @@ exports.postAddProductPage = (req, res, next) => {
 
     console.log('add product: ', title, imageUrl, description, price);
 
-    const product = new Product(title)
+    const product = new Product(title, imageUrl, description, price);
     product.save()
 
     res.redirect('/');

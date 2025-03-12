@@ -9,9 +9,13 @@ router.get("/", shopController.getIndexPage )
 
 router.get('/products', shopController.getProductsPage );
 
-// router.get('/product')
+// router.get('/products/delete/:productId')
+
+router.get('/products/:productId', shopController.getProductDetailsPage)
 
 router.get('/cart', cartsController.getCartPage )
+
+router.post('/cart', cartsController.postCartPage )
 
 router.get('/checkout', cartsController.getCheckoutPage )
 

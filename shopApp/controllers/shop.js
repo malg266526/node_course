@@ -13,10 +13,21 @@ exports.getProductsPage = (req, res, next) => {
             pageTitle: 'Shop',
             path: '/',
             hasProducts: products.length > 0,
-            activeShop: true,
-            productCSS: true
         });
     })
+}
 
+exports.getProductDetailsPage = (req, res) => {
+    const prodId = req.params.productId;
+
+    Product.findById(prodId, product => {
+        console.log("found product: ", product);
+
+        res.render('shop/product-details', {
+            product: product,
+            pageTitle: product.title,
+            path: '/products',
+        });
+    })
 
 }

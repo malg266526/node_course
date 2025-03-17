@@ -8,15 +8,11 @@ exports.getCartPage = (req, res) => {
 exports.postCartPage = (req, res) => {
     const {productId} = req.body;
 
-    console.log('postCartPage', productId)
-
     Product.findById(productId, (product) => {
         Cart.addProduct(productId, product.price)
     })
 
     res.redirect('/cart')
-
-    // res.render('shop/cart', {pageTitle: 'Cart', path: "/cart"})
 }
 
 exports.getCheckoutPage = (req, res) => {

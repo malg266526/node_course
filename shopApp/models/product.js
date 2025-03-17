@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const Cart = require('./cart');
 
 const pathToSave = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json')
 
@@ -51,7 +52,16 @@ module.exports = class Product {
             const updatedProducts = products.filter((product) => product.id !== productId);
 
             fs.writeFile(pathToSave, JSON.stringify(updatedProducts), (err) => {
-                console.log('Error while saving data to the file', err)
+                if (err) {
+                    console.log('Error while saving data to the file', err)
+                }
+
+                if (!err) {
+                    const product = products.find((product) => product.id === productId);
+                    console.log('deleted product', product)
+
+                    Cart.deleteProduct(productId, +product.price)
+                }
             })
         })
     }

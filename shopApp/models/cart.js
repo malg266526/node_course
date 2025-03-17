@@ -5,7 +5,6 @@ const pathToSave = path.join(path.dirname(process.mainModule.filename), 'data', 
 
 module.exports = class Cart {
     static addProduct(id, productPrice) {
-
         fs.readFile(pathToSave, (err, fileContent) => {
             let cart = {products: [], totalPrice: 0};
 
@@ -35,6 +34,33 @@ module.exports = class Cart {
                 }
             })
         })
+    }
 
+    static deleteProduct(id, productPrice) {
+        fs.readFile(pathToSave, (err, fileContent) => {
+            let cart = {products: [], totalPrice: 0};
+
+            if (err) {
+                return;
+            }
+
+            cart = JSON.parse(fileContent)
+            const howMany = cart.products.find((product) => product.id === id).quantity;
+            const updatedProducts = cart.products.filter((product) => product.id !== id);
+
+            const updatedCart = {
+                ...cart,
+                totalPrice: cart.totalPrice - productPrice * howMany,
+                products: updatedProducts,
+            }
+
+            console.log('updatedCart', updatedCart)
+
+            fs.writeFile(pathToSave, JSON.stringify(updatedCart), (err) => {
+                if (err) {
+                    console.log('Error while saving cart', err)
+                }
+            })
+        })
     }
 }

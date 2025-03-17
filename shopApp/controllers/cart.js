@@ -2,7 +2,26 @@ const Cart = require('../models/cart');
 const Product = require('../models/product');
 
 exports.getCartPage = (req, res) => {
-    res.render('shop/cart', {pageTitle: 'Cart', path: "/cart"})
+    Cart.getCart(cart => {
+
+        Product.fetchAll(products => {
+            const cartProducts = [];
+            products
+                .forEach((product) => {
+                    const inCart = cart.products.find(prod => prod.id === product.id)
+
+                    if (inCart) {
+                        cartProducts.push({
+                            productData: product,
+                            quantity: inCart.quantity
+                        });
+                    }
+                })
+
+            console.log('cartProducts', cartProducts);
+            res.render('shop/cart', {pageTitle: 'Cart', path: "/cart", products: cartProducts})
+        })
+    })
 }
 
 exports.postCartPage = (req, res) => {

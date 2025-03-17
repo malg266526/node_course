@@ -14,6 +14,15 @@ exports.getAddProductPage = (req, res, next) => {
     });
 }
 
+exports.postAddProductPage = (req, res, next) => {
+    const {title, imageUrl, description, price} = req.body
+
+    const product = new Product(null, title, imageUrl, description, price);
+    product.save()
+
+    res.redirect('/');
+}
+
 exports.getEditProductPage = (req, res, next) => {
     const {edit} = req.query;
     const editMode = edit === "true";
@@ -28,8 +37,6 @@ exports.getEditProductPage = (req, res, next) => {
         if (!product) {
             return res.redirect('/');
         }
-
-        console.log('product', product)
 
         res.render('admin/edit-product', {
             pageTitle: "Edit Product",
@@ -47,13 +54,12 @@ exports.postEditProductPage = (req, res) => {
     res.redirect('/admin/products')
 }
 
-exports.postAddProductPage = (req, res, next) => {
-    const {title, imageUrl, description, price} = req.body
+exports.postDeleteProduct = (req, res) => {
+    const {productId } = req.body;
 
-    console.log('add product: ', title, imageUrl, description, price);
+    console.log('controller delete', productId)
 
-    const product = new Product(null, title, imageUrl, description, price);
-    product.save()
+    Product.deleteById(productId)
 
-    res.redirect('/');
+    res.redirect('/admin/products')
 }

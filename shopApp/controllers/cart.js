@@ -40,3 +40,12 @@ exports.getCheckoutPage = (req, res) => {
 exports.getOrdersPage = (req, res) => {
     res.render('shop/orders', {pageTitle: 'Orders', path: "/orders"})
 }
+
+exports.postCartDeleteProductPage = (req, res) => {
+    const {productId} = req.body;
+
+    Product.findById(productId, product => {
+        Cart.deleteProduct(productId, product.price)
+        res.redirect('/cart');
+    })
+}

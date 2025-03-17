@@ -19,4 +19,6 @@ router.get('/checkout', cartsController.getCheckoutPage )
 
 router.get('/orders', cartsController.getOrdersPage )
 
+router.post('/cart-delete-item', cartsController.postCartDeleteProductPage)
+
 module.exports = router;

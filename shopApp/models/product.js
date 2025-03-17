@@ -16,7 +16,8 @@ const getProductsFromFile = (callback) => {
 // https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png
 
 module.exports = class Product {
-    constructor(title, imageUrl, description, price) {
+    constructor(id, title, imageUrl, description, price) {
+        this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -24,17 +25,24 @@ module.exports = class Product {
     }
 
     save() {
-        this.id = Math.random().toString();
-
-        console.log('save this', this)
-
         getProductsFromFile((products) => {
-            products.push(this)
-            console.log('save', products)
+            if (this.id) {
+                const updatedProducts = products.map((product) => {
+                    return product.id === this.id ? this : product;
+                })
 
-            fs.writeFile(pathToSave, JSON.stringify(products), (err) => {
-                console.log('Error while saving data to the file', err)
-            })
+                fs.writeFile(pathToSave, JSON.stringify(updatedProducts), (err) => {
+                    console.log('Error while saving data to the file', err)
+                })
+            } else {
+                this.id = Math.random().toString();
+
+                products.push(this)
+
+                fs.writeFile(pathToSave, JSON.stringify(products), (err) => {
+                    console.log('Error while saving data to the file', err)
+                })
+            }
         })
     }
 

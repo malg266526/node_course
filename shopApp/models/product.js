@@ -26,7 +26,7 @@ module.exports = class Product {
     save() {
         this.id = Math.random().toString();
 
-        console.log('this', this)
+        console.log('save this', this)
 
         getProductsFromFile((products) => {
             products.push(this)

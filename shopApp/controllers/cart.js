@@ -18,7 +18,6 @@ exports.getCartPage = (req, res) => {
                     }
                 })
 
-            console.log('cartProducts', cartProducts);
             res.render('shop/cart', {pageTitle: 'Cart', path: "/cart", products: cartProducts})
         })
     })

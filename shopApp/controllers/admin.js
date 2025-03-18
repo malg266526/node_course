@@ -19,8 +19,9 @@ exports.postAddProductPage = (req, res, next) => {
 
     const product = new Product(null, title, imageUrl, description, price);
     product.save()
+        .then(() => res.redirect('/'))
+        .catch(err => console.log(err));
 
-    res.redirect('/');
 }
 
 exports.getEditProductPage = (req, res, next) => {
@@ -48,14 +49,14 @@ exports.getEditProductPage = (req, res, next) => {
 }
 
 exports.postEditProductPage = (req, res) => {
-    const {productId, title, imageUrl, description, price } = req.body;
+    const {productId, title, imageUrl, description, price} = req.body;
     const updatedProduct = new Product(productId, title, imageUrl, description, price);
     updatedProduct.save()
     res.redirect('/admin/products')
 }
 
 exports.postDeleteProduct = (req, res) => {
-    const {productId } = req.body;
+    const {productId} = req.body;
 
     console.log('controller delete', productId)
 

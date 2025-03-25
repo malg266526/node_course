@@ -2,7 +2,7 @@ const Product = require("../models/product");
 
 
 exports.getAdminProductsPage = (req, res) => {
-    Product.findAll()
+    req.user.getProducts()
         .then(products => {
             res.render('admin/products', {pageTitle: 'Admin Products', path: "/admin/products", products: products})
         })
@@ -18,19 +18,16 @@ exports.getAddProductPage = (req, res, next) => {
 }
 
 exports.postAddProductPage = (req, res, next) => {
-    const {title, imageUrl, description, price} = req.body
-
-    Product.create({
+    const {title, imageUrl, description, price} = req.body;
+    req.user.createProduct({
         title: title,
         imageUrl: imageUrl,
         description: description,
         price: price,
-    })
-        .then(result => {
-            console.log('It\'s okay');
-            res.redirect('/admin/products');
-        })
-        .catch(err => console.log(err));
+    }).then(result => {
+        console.log('It\'s okay');
+        res.redirect('/admin/products');
+    }).catch(err => console.log(err));
 }
 
 exports.getEditProductPage = (req, res, next) => {
